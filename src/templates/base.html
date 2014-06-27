@@ -40,7 +40,7 @@
 <!--Fim arquivos colab 01 -->
 <!-- chamada de fontes local -->
 <!-- chamada de fontes externas -->
-	<link rel="stylesheet" href="{{ STATIC_URL }}jplayer/skin/portalpadrao01/jplayer.css" type='text/css'/>	-->
+	<link rel="stylesheet" href="{{ STATIC_URL }}jplayer/skin/portalpadrao01/jplayer.css" type='text/css'/>
   {% endblock %}
   </head>
 
@@ -57,7 +57,7 @@
 		<a href="http://brasil.gov.br" title="Acesse para conhecer todos os serviços e informações do Governo Brasileiro na Internet.">Portal do Governo Brasileiro</a>		
         </div>
         <!-- fim barra do governo -->
-<!-- inicio div contraste -->
+	<!-- inicio div contraste -->
 <div class="layout"> 
     {% browserid_info %}
 
@@ -188,13 +188,13 @@
 			    <li class="dropdown">
 			      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Gitlab" %} <b class="caret"></b></a>
 			      <ul class="dropdown-menu">
+				    <li><a href="/gitlab/public/projects">{% trans "Public Projects" %}</a></li>
 				{% if user.is_active %}
-				    <li><a href="/dashboard/projects">{% trans "Projects" %}</a></li>
-				    <li><a href="/dashboard/issues">{% trans "Issues" %}</a></li>
-				    <li><a href="/dashboard/merge_requests">{% trans "Merge Requests" %}</a></li>
-				{% else %}
-				    {% trans 'Login' as login_text %}
-				    <li>{% browserid_login text=login_text %}</li>
+				    <li><a href="/gitlab/profile">{% trans "Profile" %}</a></li>
+				    <li><a href="/gitlab/projects/new">{% trans "New Project" %}</a></li>
+				    <li><a href="/gitlab/dashboard/projects">{% trans "Projects" %}</a></li>
+				    <li><a href="/gitlab/dashboard/issues">{% trans "Issues" %}</a></li>
+				    <li><a href="/gitlab/dashboard/merge_requests">{% trans "Merge Requests" %}</a></li>
 				{% endif %}
 			      </ul>
 			    </li>
@@ -202,7 +202,7 @@
 			      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Redmine" %} <b class="caret"></b></a>
 			      <ul class="dropdown-menu">
 				{% if user.is_active %}
-				    <li><a href="/projects">{% trans "Projects" %}</a></li>
+				    <li><a href="/redmine/projects">{% trans "Projects" %}</a></li>
 				{% else %}
 				    {% trans 'Login' as login_text %}
 				    <li>{% browserid_login text=login_text %}</li>
@@ -212,17 +212,12 @@
 			    <li class="dropdown">
 			      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Contribute" %} <b class="caret"></b></a>
 			      <ul class="dropdown-menu">
-				<li><a href="/wiki">Wiki</a></li>
-				{% if user.is_active %}
-				<li><a href="/wiki/WikiNewPage">{% trans "New Wiki Page" %}</a></li>
-				{% endif %}
 				<li><a href="/report">{% trans "View Tickets" %}</a></li>
 				{% if user.is_active %}
 				<li><a href="/newticket">{% trans "New Ticket" %}</a></li>
 				{% endif %}
 				<li><a href="/roadmap">{% trans "Roadmap" %}</a></li>
 				<li><a href="/browser">{% trans "Browse Source" %}</a></li>
-				<li><a href="/ci">{% trans "Continuous Integration" %}</a></li>
 			      </ul>
 			    </li>
 			    <li class="hidden-lg hidden-md">
@@ -293,20 +288,10 @@
     <div class="row">&nbsp;</div>
 
     {% block footer %}
-      <p class="col-lg-12 text-center">
-        <a href="{% url 'opendata' %}"><img src="{{ STATIC_URL }}img/opendata3.png"/></a>
-      </p>
       {% if user.is_staff %}
       <p class="col-lg-12 text-center">{% trans "Last email imported at" %} {{ last_imported_message.received_time|date:'DATETIME_FORMAT' }}</p>
       {% endif %}
-      <p class="col-lg-12 text-center">
-        {% trans "The contents of this site is published under license" %}
-        <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/br/">
-          {% trans "Creative Commons - attribution, non-commercial" %}
-        </a>
-      </p>
     {% endblock %}
-
 
   {% if not is_mobile %}
     {% conversejs_chatpanel %}
