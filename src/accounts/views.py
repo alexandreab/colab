@@ -241,6 +241,7 @@ class ChangeXMPPPasswordView(UpdateView):
         )
         return response
 
+
 def logoutColab(request):
         response = logout(request, next_page='/')
         response.delete_cookie('_redmine_session')

@@ -1,8 +1,6 @@
 
 from django.conf.urls import patterns, include, url
-
 from .views import TracProxyView, JenkinsProxyView, GitlabProxyView, RedmineProxyView , SvnProxyView
-
 
 urlpatterns = patterns('',
     # Trac URLs
@@ -11,7 +9,6 @@ urlpatterns = patterns('',
 
     # Trac URLs
     url(r'^trac/(?P<path>.*)$', TracProxyView.as_view()),
-
 
     # Gitlab URLs
     url(r'^gitlab/(?P<path>.*)$', GitlabProxyView.as_view()),
@@ -25,13 +22,7 @@ urlpatterns = patterns('',
     # SVN
     url(r'^svn/(?P<path>.*)$', SvnProxyView.as_view()),
 
-    #url(r'^projects/(?P<path>.*)$', RedmineProxyView.as_view()),
+    # Redmine
     url(r'^redmine/(?P<path>.*)$', RedmineProxyView.as_view()),
 
 )
-
-
-
-
-
-

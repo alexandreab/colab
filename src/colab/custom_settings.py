@@ -268,15 +268,12 @@ FEEDZILLA_PAGE_SIZE = 5
 FEEDZILLA_SITE_TITLE = _(u'Planet Colab')
 FEEDZILLA_SITE_DESCRIPTION = _(u'Colab blog aggregator')
 
-
 ### Mailman API settings
 MAILMAN_API_URL = 'localhost:8000'
-
 
 ### BrowserID / Persona
 SITE_URL = 'localhost:8000'
 BROWSERID_AUDIENCES = [SITE_URL, SITE_URL.replace('https', 'http')]
-
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
@@ -284,26 +281,20 @@ LOGIN_REDIRECT_URL_FAILURE = '/'
 LOGOUT_REDIRECT_URL = '/user/logout'
 BROWSERID_CREATE_USER = False
 
-
 ## Proxy settings
 COLAB_TRAC_URL = 'localhost:5000/trac/'
 COLAB_CI_URL = 'localhost:9000/ci/'
-
 REVPROXY_ADD_REMOTE_USER = True
-
 
 ## Converse.js settings
 # This URL must use SSL in order to keep chat sessions secure
 CONVERSEJS_BOSH_SERVICE_URL = SITE_URL + '/http-bind'
-
 CONVERSEJS_AUTO_REGISTER = 'mensageiro.interlegis.gov.br'
 CONVERSEJS_ALLOW_CONTACT_REQUESTS = False
 CONVERSEJS_SHOW_ONLY_ONLINE_USERS = True
 
-
 # Tastypie settings
 TASTYPIE_DEFAULT_FORMATS = ['json', ]
-
 
 # Dpaste settings
 DPASTE_EXPIRE_CHOICES = (
