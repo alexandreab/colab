@@ -250,31 +250,40 @@ Configuring Unicorn
 
   #-------------------------------------
   
-  
-  
 Editing ROUTES
 
 .. code-block::
 
   vi /opt/redmine/config/route.rb
 
-  #-------------------------------
+Add the following line after the first comments:
 
+.. code-block::
+  
   Redmine::Utils::relative_url_root = "/redmine"
 
-  RedmineApp::Application.routes.draw do
-  scope Redmine::Utils::relative_url_root do
-    root :to => 'welcome#index', :as => 'home'
-
-  ...
-  ...
-  end
-  end
-
-  #---------------------------------
-
-  Adding simbol link:
+Add the following line after " RedmineApp::Application.routes.draw do "  :   
   
+.. code-block::
+
+  scope Redmine::Utils::relative_url_root do
+  
+Add at the end of file the line :
+
+.. code-block::
+
+  end
+  
+Exit from file
+
+.. code-block::
+
+  [ESC]:wq  
+  
+Adding simbol link:
+
+.. code-block::
+
   ln -s /opt/redmine/public /opt/redmine/public/redmine
 
 Restarting  Postgresql
