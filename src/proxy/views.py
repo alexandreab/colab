@@ -48,19 +48,26 @@ class TracProxyView(HitCounterViewMixin, ProxyView):
 
         return obj
 
+class GitlabProxyView(ProxyView):
+    base_url = settings.COLAB_GITLAB_URL
+    add_remote_user = settings.REVPROXY_ADD_REMOTE_USER
+    diazo_theme_template = 'proxy/gitlab.html'
+    diazo_rules = os.path.join(DIAZO_RULES_DIR, 'gitlab.xml')
+    html5 = True
+
+class SvnProxyView(ProxyView):
+    base_url = settings.COLAB_GITLAB_URL
+    base_url = 'http://10.18.0.7:9000'
+    add_remote_user = settings.REVPROXY_ADD_REMOTE_USER
+    diazo_theme_template = 'base.html'
+    diazo_rules = os.path.join(DIAZO_RULES_DIR, 'jenkins.xml')
+    html5 = True
 
 class JenkinsProxyView(ProxyView):
     base_url = settings.COLAB_CI_URL
     add_remote_user = settings.REVPROXY_ADD_REMOTE_USER
     diazo_theme_template = 'base.html'
     diazo_rules = os.path.join(DIAZO_RULES_DIR, 'jenkins.xml')
-    html5 = True
-
-class GitlabProxyView(ProxyView):
-    base_url = settings.COLAB_GITLAB_URL
-    add_remote_user = settings.REVPROXY_ADD_REMOTE_USER
-    diazo_theme_template = 'proxy/gitlab.html'
-    diazo_rules = os.path.join(DIAZO_RULES_DIR, 'gitlab.xml')
     html5 = True
 
 class RedmineProxyView(ProxyView):

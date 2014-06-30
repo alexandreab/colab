@@ -4,7 +4,6 @@
 import datetime
 
 from collections import OrderedDict
-
 from django.contrib.auth.views import logout
 from django.contrib import messages
 from django.db import transaction
@@ -31,6 +30,8 @@ from .forms import (UserCreationForm, ListsForm, UserUpdateForm,
 from .errors import XMPPChangePwdException
 from .utils import mailman
 
+import django.contrib.auth.views
+from django.core.cache import cache
 
 class UserProfileBaseMixin(object):
     model = get_user_model()
@@ -246,4 +247,11 @@ class ChangeXMPPPasswordView(UpdateView):
             self.request,
             _("You've changed your password successfully!")
         )
+        return response
+
+
+def logoutColab(request):
+        response = logout(request, next_page='/')
+        response.delete_cookie('_redmine_session')
+        response.delete_cookie('_gitlab_session')
         return response
