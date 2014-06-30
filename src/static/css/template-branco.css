@@ -63,6 +63,9 @@ footer ul li a {
 	* 	li {
 			display:inline
 	}
+	ul.well-list li{
+			display:block
+	}
 	* h1,h2,h3,h4,h5,h6,pre,code {
 		font-size:1em
 	}
@@ -4331,7 +4334,7 @@ legend+.control-group {
 .form-horizontal .form-actions {
 	padding-left:180px;
 }
-.btn, .btn.btn-primary, .btn.btn-save, .btn.reply-btn {
+.btn:not(.btn-create, .btn-new), .btn.btn-primary, .btn.btn-save, .btn.reply-btn {
 	display:inline-block;
 	*display:inline;
 	*zoom:1;
