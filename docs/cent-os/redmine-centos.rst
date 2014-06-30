@@ -179,7 +179,7 @@ Configuring database.yml in Redmine Folder
   
   cd config/
   mv database.yml.example database.yml
-  vim database.yml
+  vi database.yml
 
 
   Comment another lines and uncomment this lines:
@@ -220,7 +220,7 @@ Configuring Unicorn
 
   cd /opt/redmine
   mkdir pids   
-  vim config/unicorn.rb
+  vi config/unicorn.rb
 
   #------------------------------------
   # Set the working application directory
@@ -256,7 +256,7 @@ Editing ROUTES
 
 .. code-block::
 
-  vim /opt/redmine/config/route.rb
+  vi /opt/redmine/config/route.rb
 
   #-------------------------------
 
