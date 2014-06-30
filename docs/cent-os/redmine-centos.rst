@@ -177,6 +177,7 @@ Configuring database.yml in Redmine Folder
 
 .. code-block::
   
+  cd config/
   mv database.yml.example database.yml
   vim database.yml
 
