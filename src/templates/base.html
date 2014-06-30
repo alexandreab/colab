@@ -32,6 +32,19 @@
     <script type="text/javascript" src="{{ STATIC_URL }}third-party/jquery.cookie.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}third-party/bootstrap/js/bootstrap.min.js"></script>
 
+  <script type="text/javascript">
+	if(window.location.href.match(/\/gitlab\//))
+	{
+		$(function(){
+			$('a').click(function(evt){ url = $(this).attr('href'); if(url.match(/\/redmine\//)){ window.location =  url; }  });
+			$('.navbar a').click(function(evt){ 
+				evt.preventDefault(); 
+				url = $(this).attr('href');
+				if(url != '#')
+					window.location = 'http://189.9.150.154' + $(this).attr('href'); });
+		});
+	}
+  </script>
     {% block head_js %}{% endblock %}
     {% block head_css %}{% endblock %}
 
