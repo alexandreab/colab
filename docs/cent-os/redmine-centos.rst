@@ -54,11 +54,42 @@ Configuring
     to:
       listen_addresses = 'localhost'
 
+
+.. code-block::
+
+    [ESC]:wq!
+  
+  
+Edit pg_hba.conf to grant the permissions
+
+.. code-block::  
+
+    sudo vi /var/lib/pgsql/9.3/data/pg_hba.conf 
+
+Set the right permission to redmine user on redmine database  
+
+.. code-block::  
+    
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+    # "local" is for Unix domain socket connections only
+    local   all             redmine                                   md5
+    
+    # IPv4 local connections:
+    host    all             redmine                 127.0.0.1/32      md5
+    
+    # IPv6 local connections:
+    host    all            redmine             ::1/128                md5
+
+.. code-block::
+
+    [ESC]:wq!
+
 Restarting Postgresql
 
 .. code-block::
   
   sudo /etc/init.d/postgresql-9.3 restart
+
 
 
 Install Gems Requirements
