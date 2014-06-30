@@ -181,15 +181,17 @@ Configuring database.yml in Redmine Folder
   mv database.yml.example database.yml
   vim database.yml
 
+
+  Comment another lines and uncomment this lines:
   #----------------------
   
   production:
-  adapter: postgresql
-  database: redmine
-  host: 10.18.0.10
-  username: redmine
-  password: redmine
-  encoding: utf8
+    adapter: postgresql
+    database: redmine
+    host: 10.18.0.10 (link to database)
+    username: redmine
+    password: redmine
+    encoding: utf8
 
   #----------------------
 
