@@ -47,7 +47,7 @@ Configuring
 
 .. code-block::
 
-    sudo vi /var/lib/pgsql/9.3/data/pg_hba.conf
+    sudo vi /var/lib/pgsql/9.3/data/postgresql.conf
   
     change: 
     # listen_addresses = 'localhost'
