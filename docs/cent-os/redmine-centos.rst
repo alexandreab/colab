@@ -287,9 +287,8 @@ Running Redmine Using unicorn
 
 .. code-block::
   
-  sudo unicorn_rails -c /opt/redmine/config/unicorn.rb -E development -l 0.0.0.0:3000 -D
-
-
+  sudo unicorn_rails -c /opt/redmine/config/unicorn.rb -E production -l 0.0.0.0:3000 -D
+  
 
 Install Plugin to Use remote_user
 
