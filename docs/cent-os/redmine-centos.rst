@@ -139,6 +139,7 @@ Install redmine 2.5.1
 
 .. code-block::
   
+  cd /opt
   svn co http://svn.redmine.org/redmine/branches/2.5-stable redmine
   sudo mkdir -p tmp/pdf public/plugin_assets
 
