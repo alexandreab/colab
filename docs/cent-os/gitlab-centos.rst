@@ -178,7 +178,7 @@ Clone and configure the ``gitlab`` repository
 .. code-block::
 
     cd /home/git
-    sudo -u git -H /usr/local/bin/git clone https://github.com/colab-community/gitlabhq.git -b 6-8-stable gitlab
+    sudo -u git -H /usr/local/bin/git clone https://github.com/colab-community/gitlabhq.git -b 7-0-stable gitlab
     cd /home/git/gitlab
     sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
     chown -R git {log,tmp}
