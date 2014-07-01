@@ -28,7 +28,7 @@ Pré-requisitos
 - O usuário colab das maquinas devem estar no arquivo ``sudoers``
 
 
-Termos e Expreções
+Termos e Expressões
 ------------------
 
 
@@ -579,19 +579,16 @@ Reinicie os serviços
     sudo service mailman restart
     sudo service nginx restart
 
-Instalação do Gitlab 6.8
+Instalação do Gitlab 7.0
 ------------------------
 
-Siga os passo na máquina destinada ao Gitlab
-
-*NOTE:*
-
-    Libere a porta 8090 desta máquina para que máquina do colab possa ouvi-la
+Siga os passo na máquina destinada ao Gitlab (a mesma máquina utilizada para o Colab)
 
 Adicione o repositório EPEL
 
 .. code-block::
 
+    sudo yum install -y wget
     sudo wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
@@ -703,7 +700,7 @@ Clone e configure o repositório ``gitlab``
 .. code-block::
 
     cd /home/git
-    sudo -u git -H /usr/local/bin/git clone https://github.com/colab-community/gitlabhq.git -b 6-8-stable gitlab
+    sudo -u git -H /usr/local/bin/git clone https://github.com/colab-community/gitlabhq.git -b spb-stable gitlab
     cd /home/git/gitlab
     sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
     chown -R git {log,tmp}
@@ -818,7 +815,7 @@ Configure o bundle
 .. code-block::
 
     cd /home/git/gitlab
-    sudo -u git -H /usr/local/bin/bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config
+    sudo -u git -H /usr/local/bin/bundle config build.pg
     sudo -u git -H /usr/local/bin/bundle config build.nokogiri --use-system-libraries
 
 Edite o arquivo sudoers para a excução dos comandos do ruby
@@ -879,41 +876,6 @@ Renicie o gitlab
 
     sudo service gitlab restart
 
-Configurando o LDAP do Gitlab
-
-Como root edit o arquivo do gitlab.yml para adicionar o LDAP
-
-.. code-block::
-
-    sudo su
-    vim /home/git/gilab/config/gitlab.yml
-
-Deixe as opções do LDAP como as opções abaixo, mas no campo do host, ao invés de localhost coloque o IP da máquina do LDAP
-
-.. code-block::
-
-  ldap:
-    enabled: true
-    host: 'localhost'
-    base: 'dc=colab,dc=com'
-    port: 389
-    uid: 'uid'
-    method: 'plain'
-    bind_dn: 'cn=admin,dc=colab,dc=com'
-    password: 'ldapcolab'
-    allow_username_or_email_login: true
-
-.. code-block::
-
-    [ESC]:wq!
-
-Reinicie o Gitlab service
-
-.. code-block::
-
-    sudo service gitlab restart
-
-
 Instalação do Redmine 2.5
 -------------------------
 
@@ -924,269 +886,6 @@ Siga os passo na máquina destinada ao Redmine
     Libere a porta 9080 desta máquina para que máquina do colab possa ouvi-la
 
 xxxxxxxxxxxEm Revisãoxxxxxxxxxxx
-
-Instalação do LDAP 2.4
-----------------------
-
-Siga os passo na máquina destinada ao LDAP
-
-*NOTE:*
-
-    Libere a porta 389 desta máquina para que máquina do colab possa ouvi-la
-
-Instale o openldap client e server
-
-.. code-block::
-
-    sudo yum install openldap-servers openldap-clients vim -y
-    sudo yum install sssd perl-LDAP.noarch -y
-
-Copie o arquivo de configuração do banco de dados
-
-.. code-block::
-
-    sudo cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
-
-Mude as permissões do diretório ``/var/lib/ldap`` e copie o arquivo ``slapd.d``
-
-.. code-block::
-
-    sudo chown -R ldap:ldap /var/lib/ldap
-    cd /etc/openldap
-    sudo mv slapd.d slapd.d.original
-
-Gere a senha ssha para o ldap, a senha deve ser ``ldapcolab``
-
-.. code-block::
-
-    sudo slappasswd
-
-Este processo irá gerar uma senha ssha parecida com esta ``{SSHA}aCnD3GgAJiDryZY0PNxVwdPXyUz45lzd``, mas não será igual. Guarde a senha gerada, pois será necessária mais tarde. Incie o servidor do LDAP.
-
-.. code-block::
-
-    sudo service slapd start
-    sudo chkconfig slapd on
-
-Copie o arquivo ``ldap.conf``
-
-.. code-block::
-
-    sudo mv ldap.conf ldap.conf.original
-    sudo cp ldap.conf.original ldap.conf
-
-Crie o ``slapd.conf``
-
-.. code-block::
-
-    sudo vim /etc/openldap/slapd.conf
-
-Popule o arquivo com o conteúdo abaixo, e mude o valor do campo ``rootpw`` para a chave ssha gerada a alguns passos atrás
-
-.. code-block::
-
-    #
-    # See slapd.conf(5) for details on configuration options.
-    # This file should NOT be world readable.
-    #
-    include     /etc/openldap/schema/core.schema
-    include     /etc/openldap/schema/cosine.schema
-    include     /etc/openldap/schema/inetorgperson.schema
-    include     /etc/openldap/schema/nis.schema
-
-    # Added for policy
-    include     /etc/openldap/schema/ppolicy.schema
-
-    # Allow LDAPv2 client connections.  This is NOT the default.
-    allow bind_v2
-
-    # Do not enable referrals until AFTER you have a working directory
-    # service AND an understanding of referrals.
-    #referral   ldap://root.openldap.org
-
-    pidfile     /var/run/openldap/slapd.pid
-    argsfile    /var/run/openldap/slapd.args
-
-    # Load dynamic backend modules:
-    # modulepath    /usr/lib64/openldap
-
-    # Modules available in openldap-servers-overlays RPM package
-    # Module syncprov.la is now statically linked with slapd and there
-    # is no need to load it here
-    # moduleload accesslog.la
-    # moduleload auditlog.la
-    # moduleload denyop.la
-    # moduleload dyngroup.la
-    # moduleload dynlist.la
-    # moduleload lastmod.la
-    # moduleload pcache.la
-
-    moduleload ppolicy.la
-
-    # moduleload refint.la
-    # moduleload retcode.la
-    # moduleload rwm.la
-    # moduleload smbk5pwd.la
-    # moduleload translucent.la
-    # moduleload unique.la
-    # moduleload valsort.la
-
-    # modules available in openldap-servers-sql RPM package:
-    # moduleload back_sql.la
-
-    # The next three lines allow use of TLS for encrypting connections using a
-    # dummy test certificate which you can generate by changing to
-    # /etc/pki/tls/certs, running "make slapd.pem", and fixing permissions on
-    # slapd.pem so that the ldap user or group can read it.  Your client software
-    # may balk at self-signed certificates, however.
-    # TLSCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
-    # TLSCertificateFile /etc/pki/tls/certs/slapd.pem
-    # TLSCertificateKeyFile /etc/pki/tls/certs/slapd.pem
-
-    # Sample security restrictions
-    #   Require integrity protection (prevent hijacking)
-    #   Require 112-bit (3DES or better) encryption for updates
-    #   Require 63-bit encryption for simple bind
-    # security ssf=1 update_ssf=112 simple_bind=64
-
-    # Sample access control policy:
-    #   Root DSE: allow anyone to read it
-    #   Subschema (sub)entry DSE: allow anyone to read it
-    #   Other DSEs:
-    #       Allow self write access
-    #       Allow authenticated users read access
-    #       Allow anonymous users to authenticate
-    #   Directives needed to implement policy:
-    # access to dn.base="" by * read
-    # access to dn.base="cn=Subschema" by * read
-    # access to *
-    #   by self write
-    #   by users read
-    #   by anonymous auth
-    #
-    # if no access controls are present, the default policy
-    # allows anyone and everyone to read anything but restricts
-    # updates to rootdn.  (e.g., "access to * by * read")
-    #
-    # rootdn can always read and write EVERYTHING!
-
-    #######################################################################
-    # ldbm and/or bdb database definitions
-    #######################################################################
-
-    database    bdb
-    suffix      "dc=colab,dc=com"
-    rootdn      "cn=admin,dc=colab,dc=com"
-    rootpw      {SSHA}subistitua aqui
-
-    # PPolicy Configuration
-    overlay ppolicy
-    ppolicy_default "cn=default,ou=policies,dc=colab,dc=com"
-    ppolicy_use_lockout
-    ppolicy_hash_cleartext
-
-
-
-    # The database directory MUST exist prior to running slapd AND
-    # should only be accessible by the slapd and slap tools.
-    # Mode 700 recommended.
-    directory   /var/lib/ldap
-
-    # Indices to maintain for this database
-    index objectClass                       eq,pres
-    index ou,cn,mail,surname,givenname      eq,pres,sub
-    index uidNumber,gidNumber,loginShell    eq,pres
-    index uid,memberUid                     eq,pres,sub
-    index nisMapName,nisMapEntry            eq,pres,sub
-
-.. code-block::
-
-    [ESC]:wq!
-
-Crie o arquivo ``ppolicy.ldif``
-
-.. code-block::
-
-    sudo vim /etc/openldap/ppolicy.ldif
-
-Insira o conteúdo abaixo
-
-.. code-block::
-
-    dn: ou = policies,dc=colab,dc=com
-    objectClass: organizationalUnit
-    objectClass: top
-    ou: policies
-
-    # default, policies, example.com
-    dn: cn=default,ou=policies,dc=colab,dc=com
-    objectClass: top
-    objectClass: pwdPolicy
-    objectClass: person
-    cn: default
-    sn: dummy value
-    pwdAttribute: userPassword
-    pwdMaxAge: 7516800
-    pwdExpireWarning: 14482463
-    pwdMinLength: 2
-    pwdMaxFailure: 10
-    pwdLockout: TRUE
-    pwdLockoutDuration: 60
-    pwdMustChange: FALSE
-    pwdAllowUserChange: FALSE
-    pwdSafeModify: FALSE
-
-.. code-block::
-
-    [ESC]:wq!
-
-Incie o LDAP Server
-
-.. code-block::
-
-    sudo service slapd start
-
-Crie o ``base.ldif``
-
-.. code-block::
-
-    mkdir /tmp/ldap
-    cd /tmp/ldap
-    sudo vim base.ldif
-
-Insira o texto abaixo
-
-.. code-block::
-
-    dn: dc=colab,dc=com
-    objectClass: dcObject
-    objectClass: organization
-    dc: colab
-    o: Colab
-    description: Colab
-
-    dn: cn=admin,dc=colab,dc=com
-    objectClass: organizationalRole
-    cn: Admin
-    description: System Manager
-
-    dn: ou=users,dc=colab,dc=com
-    objectClass: organizationalUnit
-    ou: users
-
-    dn: ou=oldusers,dc=colab,dc=com
-    objectClass: organizationalUnit
-    ou: oldusers
-
-.. code-block::
-
-    [ESC]:wq!
-
-Gere o esquema do LDAP usando o base.ldif
-
-.. code-block::
-
-    ldapadd -x -D "cn=admin,dc=colab,dc=com" -w ldapcolab -f /tmp/ldap/base.ldif
 
 
 Instalação do Colab
