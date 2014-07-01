@@ -763,6 +763,17 @@ Descomentando ou adicionando a linha
 .. code-block::
 
     relative_url_root: /gitlab
+    
+Corriga o caminho do git para ``/usr/local/bin/git``
+
+.. code-block::
+
+    git:
+      bin_path: /usr/local/bin/git
+
+.. code-block::
+
+    [ESC]:wq!
 
 Mude a URL padrão no gitlab-shell/config.yml
 
