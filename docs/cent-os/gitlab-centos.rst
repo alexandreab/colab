@@ -14,7 +14,7 @@ Gitlab
 Add EPEL repository
 
 .. code-block::
-
+    sudo yum installl wget vim
     sudo wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
