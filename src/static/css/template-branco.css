@@ -233,6 +233,7 @@ header #logo.big h1 {
 font-size:3.6em;
 font-family:"open_sansbold",'Open Sans',Arial,Helvetica,sans-serif
 }
+
 header #portal-searchbox form {
 margin: 22px 0 0 0
 }
@@ -241,21 +242,28 @@ font-size:12px;
 width:400px; /*Tamanho do campo de busca*/
 /*background-color:#E9EBEE;*/
 height:21px;
+
 }
 header #portal-searchbox input.searchField:focus {
 /*background-color:#ffffe5*/
 }
 header #portal-searchbox .searchButton {
-padding-bottom:0px;
-padding-right:8px
+	padding-bottom:0px;
+	padding-right:8px;
+	background:none repeat scroll 0% 0% transparent;
+	/*left:50px;*/
+	right:-100px;
+	/*bottom:10px;*/
 }
+
 header #portal-searchbox .searchButton i.icon-search {
 font-size:1.25em;
-color:#0a5517;
+/*color:#0a5517;*/
 -webkit-text-stroke-width:.4px;
--webkit-text-stroke-color:#0a5517;
+-webkit-text-stroke-color:none;
 -webkit-font-smoothing:antialiased
 }
+
 header #social-icons {
 margin:50px 0 2px 0; /*modifiquei aqui 2px 0 2px 0*/
 opacity:.85;
@@ -310,9 +318,8 @@ border:0;
 padding-right: 0
 }
 header div.sobre a {
-color:#000000;
-/*#0a5517*/
-font-size:.88em;
+color:#000000; /*#0a5517*/
+font-size:.88em; 
 /*padding-bottom:10px;*/
 padding-left:10px;
 padding-right:10px;
@@ -945,40 +952,41 @@ header .accessibility-container {
 							main .container #navigation #navigation-section nav.menu-de-apoio ul li {
 	margin-left:10px
 }
-							#content {
-									padding-top:58px;
-									width:100%!important;
-									margin-left:0!important;
-									margin-right:0!important;
-									padding-right:0!important;
-									padding-left:0!important
+#content {
+padding-top:58px;
+width:100%!important;
+margin-left:0!important;
+margin-right:0!important;
+padding-right:0!important;
+padding-left:0!important
 }
-							#content #content-section {
-	padding:0 10px
+#content #content-section {
+padding:0 10px
 }
-							body {
+							
+body {
 	padding-left:0;
 	padding-right:0
 }
-							header {
+header {
 	padding-left:5px;
 	padding-right:5px
 }
-							header #logo {
+header #logo {
 	padding-left:10px;
 	padding-right:10px
 }
-							header #logo span {
-									display:block;
-									width:100%!important;
-									margin-left:0!important;
-									margin-right:0!important;
-									padding-right:0!important;
-									padding-left:0!important;
-									padding-top:4px;
-									padding-bottom:4px
+header #logo span {
+	display:block;
+	width:100%!important;
+	margin-left:0!important;
+	margin-right:0!important;
+	padding-right:0!important;
+	padding-left:0!important;
+	padding-top:4px;
+	padding-bottom:4px
 }
-							header #portal-searchbox form {
+header #portal-searchbox form {
 									margin-top:12px;
 									width:100%!important;
 									margin-left:0!important;
@@ -992,21 +1000,22 @@ header .accessibility-container {
 	font-size:18px;
 	height:30px!important
 }
-								header #portal-searchbox .input-append .searchButton {
-	height:40px!important
-}
-								header #social-icons {
+
+header #portal-searchbox .input-append .searchButton {
+	height:40px!important*
+
+header #social-icons {
 	display:none!important
 }
-								header div.sobre {
+header div.sobre {
 	background:transparent!important;
 	text-align:center;
 	padding-bottom:10px
 }
-								header div.sobre .pull-right {
+header div.sobre .pull-right {
 	float:none!important
 }
-								header div.sobre * {
+header div.sobre * {
 	margin:0;
 	padding:0;
 	display:inline;
@@ -4190,7 +4199,7 @@ input:focus:invalid:focus,textarea:focus:invalid:focus,select:focus:invalid:focu
 .input-append input,.input-append select,.input-append .uneditable-input {
 	-webkit-border-radius:4px 0 0 4px;
 	-moz-border-radius:4px 0 0 4px;
-	border-radius:4px 0 0 4px;
+	border-radius:4px;
 }
 .input-append input+.btn-group .btn:last-child,.input-append select+.btn-group .btn:last-child,.input-append .uneditable-input+.btn-group .btn:last-child {
 	-webkit-border-radius:0 4px 4px 0;
@@ -5376,8 +5385,8 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini {
 	margin-top:8px;
 }
 .navbar .nav>li>a:focus,.navbar .nav>li>a:hover {
-	background-color:#4e5154;
-	color:#ffffff;/*#333333*/
+	/*background-color:#4e5154;*/
+	color:#333333;
 	text-decoration:none;
 }
 .navbar .nav>.active>a,.navbar .nav>.active>a:hover,.navbar .nav>.active>a:focus {
