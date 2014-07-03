@@ -125,15 +125,6 @@ Install Gem Bundle
     
   sudo gem install bundle --no-ri --no-rdoc
 
-Install NGINX
-  
-..  code-block::
-
-  cd /tmp
-  wget http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
-  sudo rpm -ivh nginx-release-centos-6-0.el6.ngx.noarch.rpm
-  sudo yum install nginx -y
-  sudo chkconfig nginx on
 
 Install redmine 2.5.1
 
