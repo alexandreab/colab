@@ -24,4 +24,5 @@ colab::hostnames:
   - colab.interlegis.leg.br
   - colab.interlegis.gov.br
   - localhost
+  - 104.131.28.60
 colab::solr_project_path: '/home/colab/solr-4.6.1/colab'
