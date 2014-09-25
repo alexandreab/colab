@@ -30,7 +30,6 @@ EMAIL_SUBJECT_PREFIX = ''
 SECRET_KEY = secrets.get('SECRET_KEY')
 
 SITE_URL = 'http://beta.softwarepublico.gov.br'
-BROWSERID_AUDIENCES = [SITE_URL, SITE_URL.replace('https', 'http')]
 
 ALLOWED_HOSTS = ['beta.softwarepublico.gov.br']
 
