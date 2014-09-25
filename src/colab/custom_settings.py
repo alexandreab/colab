@@ -101,7 +101,6 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'cliauth',
     'django_mobile',
-    'django_browserid',
     'conversejs',
     'haystack',
     'hitcounter',
@@ -179,11 +178,6 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
-        'django_browserid': {
-            'handlers': ['sentry'],
-            'level': 'WARNING',
-            'propagate': False,
-        },
         'conversejs': {
             'handlers': ['console'],
             'level': 'DEBUG',
@@ -220,10 +214,8 @@ MIDDLEWARE_CLASSES = (
     'tz.middleware.TimezoneMiddleware',
 )
 
-# Add the django_browserid authentication backend.
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.auth.ColabBrowserIDBackend',
 )
 
 STATICFILES_DIRS = (
@@ -269,11 +261,9 @@ SITE_URL = 'localhost:8000'
 BROWSERID_AUDIENCES = [SITE_URL, SITE_URL.replace('https', 'http')]
 
 
-LOGIN_URL = '/'
+LOGIN_URL = '/account/login'
 LOGIN_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL_FAILURE = '/'
-LOGOUT_REDIRECT_URL = '/user/logout'
-BROWSERID_CREATE_USER = False
+LOGOUT_REDIRECT_URL = '/account/logout'
 
 
 ## Proxy settings

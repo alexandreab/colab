@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load i18n static browserid conversejs gravatar %}
+{% load i18n static conversejs gravatar %}
 
 <html>
   <head>
@@ -44,7 +44,6 @@
 
   <!-- data-no-turbolink will disable Rails TurboLinks for all pages under Colab -->
   <body class="container" data-no-turbolink>
-    {% browserid_info %}
 
     {% block navbar %}
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -124,18 +123,8 @@
 
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
-
-              <li class="dropdown hidden-xs hidden-lg">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acesso <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'signup' %}">{% trans "Register" %}</a></li>
-                  {% trans 'Login' as login_text %}
-                  <li>{% browserid_login text=login_text %}</li>
-                </ul>
-              </li>
-              <li class="visible-xs hidden-sm hidden-md"><a href="{% url 'signup' %}">{% trans "Register" %}</a></li>
-              {% trans 'Login' as login_text %}
-              <li class="visible-xs hidden-sm hidden-md">{% browserid_login text=login_text %}</li>
+              <li><a href="{% url 'signup' %}">{% trans "Register" %}</a></li>
+              <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
             {% else %}
               <li id="user-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle user" data-toggle="dropdown">{% gravatar user.email 40 %} <b class="caret"></b>&nbsp;&nbsp;</a>
@@ -149,8 +138,7 @@
                       </div>
                       <div>
                         <a class="btn btn-info pull-left" href="{% url 'user_profile' user.username %}">{% trans "My Profile" %}</a>
-                        {% trans 'Logout' as logout_text %}
-                        {% browserid_logout text=logout_text link_class='btn btn-default pull-right' %}
+                        <a class="btn btn-default pull-right" href="{% url 'logout' %}">{% trans "Logout" %}</a>
                       </div>
                     </div>
                   </li>
@@ -225,10 +213,6 @@
   {% endif %}
 
   {% include "tz/set_utc_offset.html" %}
-
-  <script src="https://login.persona.org/include.js"></script>
-  <script src="{% static 'browserid/api.js' %}"></script>
-  <script src="{% static 'browserid/browserid.js' %}"></script>
 
   {% block footer_js %}{% endblock %}
   </body>
