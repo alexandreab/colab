@@ -22,7 +22,7 @@ from conversejs import xmpp
 from conversejs.models import XMPPAccount
 from haystack.query import SearchQuerySet
 
-from super_archives.models import EmailAddress, Message
+from super_archives.models import EmailAddress, Message, EmailAddressValidation
 from search.utils import trans
 #from proxy.trac.models import WikiCollabCount, TicketCollabCount
 from .forms import (UserCreationForm, ListsForm, UserUpdateForm,
@@ -139,6 +139,9 @@ def signup(request):
                       {'user_form': user_form, 'lists_form': lists_form})
 
     user = user_form.save()
+    user.is_active = False
+    EmailAddressValidation.create(user.email, user)
+    user.save()
 
     # Check if the user's email have been used previously
     #   in the mainling lists to link the user to old messages

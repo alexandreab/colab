@@ -42,6 +42,8 @@ DIAZO_THEME = SITE_URL
 
 ROBOTS_NOINDEX = True
 
+## Colab email address (to send email verifications)
+COLAB_FROM_ADDRESS = 'colab@teste.com'
 
 ### Trac Settings
 
