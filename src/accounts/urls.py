@@ -5,9 +5,18 @@ from .views import (UserProfileDetailView, UserProfileUpdateView,
                     ManageUserSubscriptionsView, ChangeXMPPPasswordView)
 
 from accounts import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = patterns('',
     url(r'^register/$', 'accounts.views.signup', name='signup'),
+
+    url(r'^change-password/?$',
+        auth_views.password_change,
+        name='password_change'),
+
+    url(r'^change-password-done/?$',
+        'accounts.views.password_changed',
+        name='password_change_done'),
 
     url(r'^change-password/$',
         ChangeXMPPPasswordView.as_view(), name='change_password'),
