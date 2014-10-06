@@ -12,11 +12,11 @@ urlpatterns = patterns('',
 
     url(r'^change-password/?$',
         auth_views.password_change,
+        {'template_name': 'registration/password_change.html'},
         name='password_change'),
 
     url(r'^change-password-done/?$',
-        'accounts.views.password_changed',
-        name='password_change_done'),
+        'accounts.views.password_changed', name='password_change_done'),
 
     url(r'^change-password/$',
         ChangeXMPPPasswordView.as_view(), name='change_password'),
